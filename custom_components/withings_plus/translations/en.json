@@ -1,0 +1,47 @@
+{
+    "title": "Withings",
+    "config": {
+        "flow_title": "{profile}",
+        "step": {
+            "profile": {
+                "title": "User Profile.",
+                "description": "Provide a unique profile name for this data. Typically this is the name of the profile you selected in the previous step.",
+                "data": {
+                    "profile": "Profile Name"
+                }
+            },
+            "pick_implementation": {
+                "title": "Pick Authentication Method"
+            },
+            "reauth_confirm": {
+                "title": "Reauthenticate Integration",
+                "description": "The \"{profile}\" profile needs to be re-authenticated in order to continue receiving Withings data."
+            }
+        },
+        "error": {
+            "already_configured": "Account is already configured"
+        },
+        "abort": {
+            "authorize_url_timeout": "Timeout generating authorize URL.",
+            "missing_configuration": "The component is not configured. Please follow the documentation.",
+            "already_configured": "Configuration updated for profile.",
+            "no_url_available": "No URL available. For information about this error, [check the help section]({docs_url})"
+        },
+        "create_entry": {
+            "default": "Successfully authenticated with Withings."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Withings Options",
+                "data": {
+                    "body_measurement": "Activate sensors related to body measurements",
+                    "sleep_measurement": "Activates sleep-related sensors",
+                    "thermo_measurement": "Activate body temperature sensor",
+                    "pressure_measurement": "Activate blood pressure related sensor"
+                }
+            }
+        }
+    }
+}
