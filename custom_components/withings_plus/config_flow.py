@@ -16,14 +16,6 @@ from homeassistant.helpers import config_entry_oauth2_flow
 from .const import CONF_USE_WEBHOOK, DEFAULT_TITLE, DOMAIN
 
 
-# modify (add)
-from homeassistant.core import callback
-from homeassistant.helpers import selector
-import voluptuous as vol
-from homeassistant import config_entries
-from .const import CONF_USE_BODY_MEASUREMENT, CONF_USE_PRESSURE_MEASUREMENT, CONF_USE_SLEEP_MEASUREMENT, CONF_USE_THERMO_MEASUREMENT
-
-
 class WithingsFlowHandler(
     config_entry_oauth2_flow.AbstractOAuth2FlowHandler, domain=DOMAIN
 ):
@@ -88,39 +80,3 @@ class WithingsFlowHandler(
             return self.async_abort(reason="reauth_successful")
 
         return self.async_abort(reason="wrong_account")
-
-    # modify (add)
-    @staticmethod
-    @callback
-    def async_get_options_flow(config_entry):
-        """Handle a option flow."""
-        return OptionsFlowHandler(config_entry)
-
-
-############################ modify (add)
-class OptionsFlowHandler(config_entries.OptionsFlow):
-    """Handles options flow for the component."""
-
-    def __init__(self, config_entry) -> None:
-        """Initialize options flow."""
-        self.config_entry = config_entry
-
-    async def async_step_init(self, user_input: dict[str, Any] = None) -> dict[str, Any]:
-        errors: dict[str, str] = {}
-        """Handle options flow."""
-        options = self.config_entry.options
-
-        if user_input is not None:
-            return self.async_create_entry(data=user_input)
-
-        return self.async_show_form(
-            step_id="init",
-            data_schema=vol.Schema(
-                    {
-                        vol.Optional(CONF_USE_SLEEP_MEASUREMENT, default=options.get(CONF_USE_SLEEP_MEASUREMENT, False)): selector.BooleanSelector(selector.BooleanSelectorConfig()),
-                        vol.Optional(CONF_USE_BODY_MEASUREMENT, default=options.get(CONF_USE_BODY_MEASUREMENT, False)): selector.BooleanSelector(selector.BooleanSelectorConfig()),
-                        vol.Optional(CONF_USE_PRESSURE_MEASUREMENT, default=options.get(CONF_USE_PRESSURE_MEASUREMENT, False)): selector.BooleanSelector(selector.BooleanSelectorConfig()),
-                        vol.Optional(CONF_USE_THERMO_MEASUREMENT, default=options.get(CONF_USE_THERMO_MEASUREMENT, False)): selector.BooleanSelector(selector.BooleanSelectorConfig()),
-                    }
-            ), errors=errors
-        )
