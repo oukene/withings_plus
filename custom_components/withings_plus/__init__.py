@@ -60,7 +60,7 @@ CONFIG_SCHEMA = vol.Schema(
                     vol.Optional(CONF_CLIENT_SECRET): vol.All(
                         cv.string, vol.Length(min=1)
                     ),
-                    vol.Optional(CONF_USE_WEBHOOK): cv.boolean,
+                    vol.Optional(CONF_USE_WEBHOOK, default=True): cv.boolean,
                     vol.Optional(CONF_PROFILES): vol.All(
                         cv.ensure_list,
                         vol.Unique(),
