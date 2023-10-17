@@ -12,6 +12,8 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import DOMAIN, Measurement
 from .coordinator import WithingsDataUpdateCoordinator
 
+# modify (add)
+from .const import VERSION
 
 @dataclass
 class WithingsEntityDescriptionMixin:
@@ -28,9 +30,17 @@ class WithingsEntityDescription(EntityDescription, WithingsEntityDescriptionMixi
 
 class WithingsEntity(CoordinatorEntity[WithingsDataUpdateCoordinator]):
     """Base class for withings entities."""
-
+    # base
+    # entity_description: WithingsEntityDescription
+    # _attr_has_entity_name = True
+    
+    #modify
     entity_description: WithingsEntityDescription
+    _attr_should_poll = False
     _attr_has_entity_name = True
+    _attr_entity_registry_enabled_default = True
+    _attr_entity_registry_visible_default = True
+    _attr_force_update = True
 
     def __init__(
         self,
@@ -44,4 +54,12 @@ class WithingsEntity(CoordinatorEntity[WithingsDataUpdateCoordinator]):
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, str(coordinator.config_entry.unique_id))},
             manufacturer="Withings",
+            # modify (add)
+            sw_version=VERSION,
         )
+
+
+    # modify (add)
+    @property
+    def translation_key(self) -> str | None:
+        return self.entity_description.key
