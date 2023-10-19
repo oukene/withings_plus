@@ -322,6 +322,9 @@ SENSORS = [
         translation_key="snoring",
         state_class=SensorStateClass.MEASUREMENT,
         entity_registry_enabled_default=False,
+        #modify
+        native_unit_of_measurement=UnitOfTime.SECONDS,
+        device_class=SensorDeviceClass.DURATION,
     ),
     WithingsSensorEntityDescription(
         key=Measurement.SLEEP_SNORING_EPISODE_COUNT.value,

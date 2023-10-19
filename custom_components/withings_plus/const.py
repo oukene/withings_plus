@@ -2,15 +2,15 @@
 from enum import StrEnum
 import logging
 
-DEFAULT_TITLE = "Withings"
+DEFAULT_TITLE = "Withings Plus"
 CONF_PROFILES = "profiles"
 CONF_USE_WEBHOOK = "use_webhook"
 
 DATA_MANAGER = "data_manager"
 
 CONFIG = "config"
-DOMAIN = "withings"
-LOG_NAMESPACE = "homeassistant.components.withings"
+DOMAIN = "withings_plus"
+LOG_NAMESPACE = "homeassistant.components.withings_plus"
 PROFILE = "profile"
 PUSH_HANDLER = "push_handler"
 
@@ -65,11 +65,3 @@ UOM_MMHG = "mmhg"
 
 #modify
 VERSION = "2023.10.3"
-DEFAULT_TITLE = "Withings_plus"
-DOMAIN = "withings_plus"
-LOG_NAMESPACE = "homeassistant.components.withings_plus"
-
-CONF_USE_BODY_MEASUREMENT = "body_measurement"
-CONF_USE_SLEEP_MEASUREMENT = "sleep_measurement"
-CONF_USE_THERMO_MEASUREMENT = "thermo_measurement"
-CONF_USE_PRESSURE_MEASUREMENT = "pressure_measurement"
