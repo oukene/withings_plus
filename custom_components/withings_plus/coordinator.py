@@ -161,10 +161,10 @@ class WithingsDataUpdateCoordinator(DataUpdateCoordinator[dict[Measurement, Any]
 
         # Collect the raw data.
         for serie in response.series:
-            data = serie.data
-
-            for field in GetSleepSummaryField:
-                raw_values[field].append(dict(data)[field.value])
+            if yesterday_noon_utc < dt_util.as_utc(serie.startdate):
+                data = serie.data
+                for field in GetSleepSummaryField:
+                    raw_values[field].append(dict(data)[field.value])
 
         values: dict[GetSleepSummaryField, float] = {}
 
