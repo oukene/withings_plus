@@ -51,6 +51,10 @@ class WithingsEntity(CoordinatorEntity[WithingsDataUpdateCoordinator]):
         super().__init__(coordinator)
         self.entity_description = description
         self._attr_unique_id = f"withings_{coordinator.config_entry.unique_id}_{description.measurement.value}"
+
+        # modify (add)
+        self.entity_id = DOMAIN + "." + "withings_" + description.measurement.value
+
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, str(coordinator.config_entry.unique_id))},
             manufacturer="Withings",
