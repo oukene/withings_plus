@@ -79,6 +79,7 @@ class WithingsDataUpdateCoordinator(DataUpdateCoordinator[dict[Measurement, Any]
         """Initialize the Withings data coordinator."""
         super().__init__(hass, LOGGER, name="Withings", update_interval=UPDATE_INTERVAL)
         self._client = client
+        self._last_sleep_time = None
 
     def webhook_subscription_listener(self, connected: bool) -> None:
         """Call when webhook status changed."""
@@ -163,6 +164,7 @@ class WithingsDataUpdateCoordinator(DataUpdateCoordinator[dict[Measurement, Any]
         for serie in response.series:
             if yesterday_noon_utc < dt_util.as_utc(serie.startdate):
                 data = serie.data
+                self._last_sleep_time = serie.enddate
                 for field in GetSleepSummaryField:
                     raw_values[field].append(dict(data)[field.value])
 

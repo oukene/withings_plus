@@ -386,3 +386,11 @@ class WithingsSensor(WithingsEntity, SensorEntity):
             super().available
             and self.entity_description.measurement in self.coordinator.data
         )
+
+    @property
+    def extra_state_attributes(self) -> None:
+        attr = {}
+        if "sleep_score" == self.translation_key:
+            attr["last_sleep_time"] = str(self.coordinator._last_sleep_time)
+        return attr
+
